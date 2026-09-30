@@ -1166,3 +1166,46 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* =========================
+   SHARE
+========================= */
+
+.share-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 56px;
+
+  margin-top: 32px;
+  padding: 12px 24px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #282426;
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.share-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.88;
+}
+
+.share-button span {
+  font-size: 14px;
+  opacity: 0.7;
+}

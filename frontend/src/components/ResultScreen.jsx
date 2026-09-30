@@ -45,9 +45,29 @@ function ResultScreen({
     setSending(false);
   };
 
+  const handleShare = () => {
+    const text = [
+      `私の推し候補は【${firstMember.name}】でした♡`,
+      firstMember.catchphrase,
+      "",
+      "#絶対少女推し診断",
+    ].join("\n");
+
+    const shareUrl =
+      "https://twitter.com/intent/tweet?" +
+      new URLSearchParams({
+        text,
+      }).toString();
+
+    window.open(
+      shareUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
   return (
     <section className="result-screen">
-
       <p className="result-label">
         YOUR OSHI MATCH ♡
       </p>
@@ -71,13 +91,9 @@ function ResultScreen({
           WHY YOU MATCH
         </p>
 
-        <h2>
-          あなたが惹かれそうな理由 ♡
-        </h2>
+        <h2>あなたが惹かれそうな理由 ♡</h2>
 
-        <p>
-          {firstMember.description}
-        </p>
+        <p>{firstMember.description}</p>
       </div>
 
       <div className="result-points">
@@ -85,9 +101,7 @@ function ResultScreen({
           CHECK POINT
         </p>
 
-        <h2>
-          この子のここに注目
-        </h2>
+        <h2>この子のここに注目</h2>
 
         <div className="point-list">
           {firstMember.points.map((point, index) => (
@@ -133,9 +147,7 @@ function ResultScreen({
               YOUR FEEDBACK
             </p>
 
-            <h2>
-              診断結果どうだった？♡
-            </h2>
+            <h2>診断結果どうだった？♡</h2>
 
             <div className="reaction-buttons">
               <button
@@ -216,6 +228,14 @@ function ResultScreen({
       </div>
 
       <button
+        className="share-button"
+        onClick={handleShare}
+      >
+        診断結果をXでシェアする
+        <span>↗</span>
+      </button>
+
+      <button
         className="retry-button"
         onClick={onRetry}
       >
@@ -225,7 +245,6 @@ function ResultScreen({
       <p className="unofficial result-unofficial">
         UNOFFICIAL FAN PROJECT
       </p>
-
     </section>
   );
 }
