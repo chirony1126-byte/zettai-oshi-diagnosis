@@ -46,25 +46,28 @@ function ResultScreen({
   };
 
   const handleShare = () => {
-    const text = [
-      `私の推し候補は【${firstMember.name}】でした♡`,
-      firstMember.catchphrase,
-      "",
-      "#絶対少女推し診断",
-    ].join("\n");
+  const text = [
+    `私の推し候補は【${firstMember.name}】でした♡`,
+    firstMember.catchphrase,
+    "",
+    "#絶対少女推し診断",
+  ].join("\n");
 
-    const shareUrl =
-      "https://twitter.com/intent/tweet?" +
-      new URLSearchParams({
-        text,
-      }).toString();
+  const siteUrl = "https://zettai-oshi-diagnosis.vercel.app/";
 
-    window.open(
-      shareUrl,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
+  const shareUrl =
+    "https://twitter.com/intent/tweet?" +
+    new URLSearchParams({
+      text,
+      url: siteUrl,
+    }).toString();
+
+  window.open(
+    shareUrl,
+    "_blank",
+    "noopener,noreferrer"
+  );
+};
 
   return (
     <section className="result-screen">
