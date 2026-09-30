@@ -42,6 +42,11 @@ class DiagnosisCreate(BaseModel):
     third_member: str
     answers: List[AnswerCreate]
 
+class FeedbackCreate(BaseModel):
+    session_id: int
+    reaction: str
+    interested_member: str
+
 
 # ---------- API ----------
 
@@ -90,4 +95,25 @@ def create_diagnosis(
             "second": session.second_member,
             "third": session.third_member
         }
+    }
+
+
+@app.post("/feedback")
+def create_feedback(
+    feedback: FeedbackCreate,
+    db: Session = Depends(get_db)
+):
+    db_feedback = models.Feedback(
+        session_id=feedback.session_id,
+        reaction=feedback.reaction,
+        interested_member=feedback.interested_member
+    )
+
+    db.add(db_feedback)
+    db.commit()
+    db.refresh(db_feedback)
+
+    return {
+        "status": "saved",
+        "feedback_id": db_feedback.id
     }
