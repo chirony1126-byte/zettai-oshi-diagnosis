@@ -11,7 +11,7 @@ import { questions } from "./data/questions";
 async function saveDiagnosis(result, answers) {
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/diagnoses",
+      "https://zettai-oshi-api.onrender.com/diagnoses",
       {
         method: "POST",
 
@@ -55,7 +55,7 @@ async function saveFeedback(
 ) {
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/feedback",
+      "https://zettai-oshi-api.onrender.com/feedback",
       {
         method: "POST",
         headers: {
