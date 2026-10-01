@@ -118,3 +118,38 @@ def create_feedback(
         "status": "saved",
         "feedback_id": db_feedback.id
     }
+@app.get("/stats")
+def get_stats(db: Session = Depends(get_db)):
+    sessions = db.query(models.DiagnosisSession).all()
+    feedbacks = db.query(models.Feedback).all()
+
+    return {
+        "total_diagnoses": len(sessions),
+
+        "diagnoses": [
+            {
+                "session_id": session.id,
+                "created_at": session.created_at,
+                "first_member": session.first_member,
+                "second_member": session.second_member,
+                "third_member": session.third_member,
+                "answers": [
+                    {
+                        "question_id": answer.question_id,
+                        "answer_id": answer.answer_id,
+                    }
+                    for answer in session.answers
+                ],
+            }
+            for session in sessions
+        ],
+
+        "feedbacks": [
+            {
+                "session_id": feedback.session_id,
+                "reaction": feedback.reaction,
+                "interested_member": feedback.interested_member,
+            }
+            for feedback in feedbacks
+        ],
+    }
