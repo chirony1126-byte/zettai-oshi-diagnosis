@@ -11,6 +11,15 @@ DATABASE_URL = os.getenv(
     "sqlite:///./oshi_diagnosis.db"
 )
 
+# PostgreSQLではpsycopg v3を使用
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
+
+
 # SQLiteのときだけ必要な設定
 connect_args = (
     {"check_same_thread": False}
