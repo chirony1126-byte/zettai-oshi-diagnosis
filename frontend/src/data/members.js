@@ -78,7 +78,7 @@ export const members = {
   },
 
   sayupi: {
-    name: "桜桃 ｻﾕﾋ°",
+    name: "桜桃 ｻﾕﾋﾟ",
     shortName: "サユピ",
     catchphrase: "明るさ × かわいさ × ファンサ",
     description:
