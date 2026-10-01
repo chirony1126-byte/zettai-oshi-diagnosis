@@ -1,11 +1,26 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "sqlite:///./oshi_diagnosis.db"
+
+# RenderではNeonのPostgreSQLを使用
+# ローカルでは今まで通りSQLiteを使用
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "sqlite:///./oshi_diagnosis.db"
+)
+
+# SQLiteのときだけ必要な設定
+connect_args = (
+    {"check_same_thread": False}
+    if DATABASE_URL.startswith("sqlite")
+    else {}
+)
 
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False}
+    connect_args=connect_args
 )
 
 SessionLocal = sessionmaker(
@@ -19,7 +34,6 @@ Base = declarative_base()
 
 def get_db():
     db = SessionLocal()
-
     try:
         yield db
     finally:
